@@ -46,21 +46,21 @@ help_func() {
 
 
 print_and_exec() {
-    echo "-명령어 : $cmd"
-    ``$cmd` >&1`
+    echo "- 명령어 : $1"
+    ``$1` >&1`
     echo ""
 }
 
 init_func() {
     echo "################### swarm init ###################"
     cmd="$TTY_CMD docker container exec -it manager docker swarm init"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 status_func() {
     echo "################### swarm node ###################"
     cmd="$TTY_CMD docker container exec -it manager docker node ls"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 join_func() {
@@ -72,26 +72,26 @@ join_func() {
         cmd="$TTY_CMD  docker container exec -it worker0$i docker swarm join \
             --token $token manager:2377"
         echo "* worker0$i join" 
-        print_and_exec cmd
+        print_and_exec "$cmd"
     done
 }
 
 image_func() {
     echo "################### image rename ###################"
     cmd="$TTY_CMD docker image tag example/echo:latest localhost:5000/example/echo:latest"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 
     echo "################### image push ###################"
     cmd="$TTY_CMD docker image push localhost:5000/example/echo:latest"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 
     echo "################### image pull test ###################"
     cmd="$TTY_CMD docker container exec -it worker01 docker image pull registry:5000/example/echo:latest"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 
     echo "################### image check ###################"
     cmd="$TTY_CMD docker container exec -it worker01 docker image ls"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 service_func() {
@@ -102,12 +102,12 @@ service_func() {
         --publish 8000:8080 \
         --name echo \
         registry:5000/example/echo:latest"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 
     echo "################### service status ###################"
     cmd="$TTY_CMD docker container exec -it manager \
         docker service ls"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 scale-out_func() {
@@ -117,12 +117,12 @@ scale-out_func() {
     echo "################### scale out ($count) ###################"
     cmd="$TTY_CMD docker container exec -it manager \
         docker service scale echo=${count}" 
-    print_and_exec cmd
+    print_and_exec "$cmd"
 
     echo "################### node status ###################"
     cmd="$TTY_CMD docker container exec -it manager \
         docker service ps echo"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 

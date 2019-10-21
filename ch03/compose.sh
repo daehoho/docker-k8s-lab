@@ -24,21 +24,21 @@ help_func() {
 }
 
 print_and_exec() {
-    echo "-명령어 : $cmd"
-    ``$cmd` >&1`
+    echo "- 명령어 : $1"
+    ``$1` >&1`
     echo ""
 }
 
 up_func() {
     echo "################### compose up ###################"
     cmd="$files up -d"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 down_func() {
     echo "################### compose down ###################"
     cmd="$files down"
-    print_and_exec cmd
+    print_and_exec "$cmd"
 }
 
 case ${args[0]} in
