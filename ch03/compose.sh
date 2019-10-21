@@ -1,11 +1,9 @@
 #!/bin/bash
 
-cmd="docker-compose \
+files="docker-compose \
     -f docker-compose.yml \
     -f docker-manager-compose.yml \
     -f docker-worker-compose.yml "
-up_cmd="$cmd up -d"
-down_cmd="$cmd down"
 
 if [ "$#" -lt 1 ]; then
     echo "파라미터를 입력해주세요."
@@ -33,12 +31,14 @@ print_and_exec() {
 
 up_func() {
     echo "################### compose up ###################"
-    print_and_exec up_cmd
+    cmd="$files up -d"
+    print_and_exec cmd
 }
 
 down_func() {
     echo "################### compose down ###################"
-    print_and_exec down_cmd
+    cmd="$files down"
+    print_and_exec cmd
 }
 
 case ${args[0]} in
