@@ -32,7 +32,7 @@ fi
 
 
 help_func() {
-    echo "Your Operation System : $THIS_OS"
+    echo "Your Operating System : $THIS_OS"
     echo "Usage: $0 [option]"
     echo "----------- options -----------"
     echo "책의 실습 순서는 아래와 같습니다"
