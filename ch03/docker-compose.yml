@@ -5,5 +5,3 @@ services:
     image: registry:2.6
     ports:
       - 5000:5000
-    volumes:
-      - "../data/registry-data:/var/lib/registry"
