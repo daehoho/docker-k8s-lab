@@ -1,0 +1,17 @@
+version: "3"
+services:
+  manager:
+    container_name: manager
+    image: docker:18.05.0-ce-dind
+    privileged: true
+    tty: true
+    ports:
+      - 8000:80
+      - 9000:9000
+    depends_on:
+      - registry
+    expose:
+      - 3375
+    command: "--insecure-registry registry:5000"
+    volumes:
+      - "./stack:/stack"
